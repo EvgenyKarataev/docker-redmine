@@ -333,6 +333,11 @@ if [[ ! -f /proc/net/if_inet6 ]]; then
   sed -e '/listen \[::\]:443/ s/^#*/#/' -i /etc/nginx/sites-enabled/redmine
 fi
 
+if [[ ${SMTP_SENDMAIL} == true ]]; then
+  sudo -HEu ${REDMINE_USER} sed '5,17d' -i config/initializers/smtp_settings.rb ;;
+  sudo -HEu ${REDMINE_USER} sed 's/{{SMTP_METHOD}}/'"${SMTP_METHOD}"'/g' -i config/initializers/smtp_settings.rb
+fi
+
 if [[ ${SMTP_ENABLED} == true ]]; then
   # configure mail delivery
   sudo -HEu ${REDMINE_USER} sed 's/{{SMTP_METHOD}}/'"${SMTP_METHOD}"'/g' -i config/initializers/smtp_settings.rb
