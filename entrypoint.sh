@@ -378,6 +378,8 @@ if [[ ${SMTP_ENABLED} == true ]]; then
   fi
 fi
 
+cat config/initializers/smtp_settings.rb
+
 # create file uploads directory
 mkdir -p ${REDMINE_DATA_DIR}/files
 chmod 755 ${REDMINE_DATA_DIR}/files
