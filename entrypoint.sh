@@ -378,6 +378,7 @@ if [[ ${SMTP_ENABLED} == true ]]; then
   fi
 fi
 
+echo "Printing smtp_settings"
 cat config/initializers/smtp_settings.rb
 
 # create file uploads directory
