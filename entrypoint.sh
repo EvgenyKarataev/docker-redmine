@@ -33,6 +33,7 @@ if [[ -n ${SMTP_USER} ]]; then
   SMTP_AUTHENTICATION=${SMTP_AUTHENTICATION:-:login}
 fi
 SMTP_ENABLED=${SMTP_ENABLED:-false}
+SMTP_SENDMAIL=${SMTP_ENABLED:-true}
 
 IMAP_ENABLED=${IMAP_ENABLED:-false}
 IMAP_USER=${IMAP_USER:-${SMTP_USER}}
@@ -332,6 +333,8 @@ if [[ ! -f /proc/net/if_inet6 ]]; then
   sed -e '/listen \[::\]:80/ s/^#*/#/' -i /etc/nginx/sites-enabled/redmine
   sed -e '/listen \[::\]:443/ s/^#*/#/' -i /etc/nginx/sites-enabled/redmine
 fi
+
+echo "SMTP_SENDMAIL VALUE IS: " ${SMTP_METHOD}
 
 if [[ ${SMTP_SENDMAIL} == true ]]; then
   sudo -HEu ${REDMINE_USER} sed '5,17d' -i config/initializers/smtp_settings.rb ;;
